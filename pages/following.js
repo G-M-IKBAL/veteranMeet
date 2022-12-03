@@ -1,21 +1,21 @@
 import Head from "next/head";
-import EventCard from "../components/event";
-function Suggestion(){
+import Follow from "../components/follow";
+function Following(){
     return(
 
     <div >
       <Head>
-        <title>Suggestion</title>
+        <title>Following</title>
       </Head>
 
       <div className="p-16" >
         <h1 className="p-10 text-5xl font-bold leading-none sm:text-6xl">
-            Suggestions for you
+            People you follow
         </h1>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        <EventCard/>
-        <EventCard/>
-        <EventCard/>
+        <Follow/>
+        <Follow/>
+        <Follow/>
         </div>
       </div>
       
@@ -25,4 +25,4 @@ function Suggestion(){
 }
 
 
-export default Suggestion;
+export default Following;
