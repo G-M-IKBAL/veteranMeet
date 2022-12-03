@@ -19,7 +19,6 @@ export default function Home() {
       </Head>
       <Profile email={session.user.email} />
       <Post email={session.user.email} />
-      
     </div>
   )
 }
