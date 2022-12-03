@@ -14,7 +14,7 @@ function CreateEvent(){
     return(
 
     <section className="p-6 ">
-	<form novalidate="" action="" className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
+	<form  action="" className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
 		<fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm ">
 			<div className="space-y-2 col-span-full lg:col-span-1">
 				<p className="font-medium">Event Inormation</p>
@@ -23,35 +23,35 @@ function CreateEvent(){
 			<div className="grid col-span-full grid-cols-2  sm:grid-cols-4 md:grid-cols-6 gap-4">
                 
                 <div className="col-span-full sm:col-span-2">
-					<label for="email" className="text-sm">Email</label>
+					<label htmlFor="email" className="text-sm">Email</label>
 					<input id="email" type="email" placeholder="Email" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 				</div>
                 <div className="col-span-full sm:col-span-2">
-					<label for="name" className="text-sm">Name</label>
+					<label htmlFor="name" className="text-sm">Name</label>
 					<input id="name" type="text" placeholder="Name" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 				</div>
 				<div className="col-span-full sm:col-span-2">
-					<label for="type" className="text-sm">type</label>
+					<label htmlFor="type" className="text-sm">type</label>
 					<input id="type" type="text" placeholder="type" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 				</div>
 
 				<div className="col-span-full sm:col-span-2">
-					<label for="time" className="text-sm">time</label>
+					<label htmlFor="time" className="text-sm">time</label>
 					<input id="time" type={"time"} placeholder="time" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 				</div>
 
                 <div className="col-span-full sm:col-span-2">
-					<label for="location" className="text-sm">location</label>
+					<label htmlFor="location" className="text-sm">location</label>
 					<input id="location" type={"text"} placeholder="location" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 				</div>
 
                 <div className="col-span-full sm:col-span-2">
-					<label for="description" className="text-sm">description</label>
+					<label htmlFor="description" className="text-sm">description</label>
 					<input id="description" type={"text"} placeholder="description" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 				</div>
 
                 <div className="col-span-full sm:col-span-2">
-                    <label for="description" className="text-sm">hobbies</label>
+                    <label htmlFor="description" className="text-sm">hobbies</label>
                     <ListBox/>
                 </div>
 

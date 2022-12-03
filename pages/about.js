@@ -7,9 +7,9 @@ function About(){
 		<h1 className="text-4xl font-bold leading-tight md:text-5xl">Interdum et malesuada fames ac ante ipsum primis in faucibus?</h1>
 		<p className="text-sm dark:text-gray-400">by
 			<a rel="noopener noreferrer" href="#" target="_blank" className="underline dark:text-violet-400">
-				<span itemprop="name">Leroy Jenkins</span>
+				<span >Leroy Jenkins</span>
 			</a>on
-			<time datetime="2021-02-12 15:34:18-0200">Feb 12th 2021</time>
+			<time >Feb 12th 2021</time>
 		</p>
 	</div>
 	<div className="dark:text-gray-100">
