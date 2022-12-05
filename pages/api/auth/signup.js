@@ -2,6 +2,7 @@
 import connectMongo from '../../../database/conn';
 import Users from '../../../model/Schema'
 import { hash } from 'bcryptjs';
+import Logins from '../../../model/login';
 
 export default async function handler(req, res){
     connectMongo().catch(error => res.json({ error: "Connection Failed...!"}))
@@ -22,6 +23,17 @@ export default async function handler(req, res){
             if(err) return res.status(404).json({ err });
             res.status(201).json({ status : true, user: data})
         })
+
+
+        // check duplicate users
+        // const checkexistinglogin = await Logins.findOne({ email });
+        // if(checkexistinglogin) return res.status(422).json({ message: "login info Already Exists...!"});
+
+        // Logins.create({email,password},function(err,data){
+        //     if(err) return res.status(404).json({ err });
+        //     res.status(201).json({ status : true, login: data})
+        // })
+
 
     } else{
         res.status(500).json({ message: "HTTP method not valid only POST Accepted"})
