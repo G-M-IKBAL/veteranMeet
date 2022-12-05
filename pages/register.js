@@ -15,7 +15,7 @@ export default function Register(){
     const router = useRouter()
     const formik = useFormik({
         initialValues: {
-            username : '',
+            name : '',
             email: '',
             password: '',
             cpassword: ''
@@ -25,6 +25,8 @@ export default function Register(){
     })
 
     async function onSubmit(values){
+
+        console.log(values);
         const options = {
             method: "POST",
             headers : { 'Content-Type': 'application/json'},
@@ -54,19 +56,19 @@ export default function Register(){
 
             {/* form */}
             <form className='flex flex-col gap-5' onSubmit={formik.handleSubmit}>
-                <div className={`${styles.input_group} ${formik.errors.username && formik.touched.username ? 'border-rose-600' : ''}`}>
+                <div className={`${styles.input_group} ${formik.errors.name && formik.touched.name ? 'border-rose-600' : ''}`}>
                     <input 
                     type="text"
                     name='Username'
                     placeholder='Username'
                     className={styles.input_text}
-                    {...formik.getFieldProps('username')}
+                    {...formik.getFieldProps('name')}
                     />
                     <span className='icon flex items-center px-4'>
                         <HiOutlineUser size={25} />
                     </span>
                 </div>
-                {/* {formik.errors.username && formik.touched.username ? <span className='text-rose-500'>{formik.errors.username}</span> : <></>} */}
+                {/* {formik.errors.name && formik.touched.name ? <span className='text-rose-500'>{formik.errors.name}</span> : <></>} */}
                 <div className={`${styles.input_group} ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                     <input 
                     type="email"
