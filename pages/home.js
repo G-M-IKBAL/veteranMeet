@@ -60,11 +60,11 @@ export default function Home() {
             <Feed text={post.text} multimedia={post.multimedia}/>
         ))
       } */}
-      <div className="p-16 " >
-        <h1 className="p-2 text-center text-5xl font-bold leading-none sm:text-6xl">
-            Posts
+      <div className="p-32" >
+        <h1 className="p-10 text-center text-5xl font-bold leading-none sm:text-6xl">
+            Feed
         </h1>
-        <div className="grid gap-4 grid-cols-1  sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-10 grid-cols-1 lg:grid-cols-2">
         
         {
           posts.map((post)=>(
