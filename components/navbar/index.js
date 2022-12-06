@@ -67,6 +67,9 @@ function LoggedIn({handleSignOut}){
             <Navbar.Link href="/followers">
             Followers
             </Navbar.Link>
+            <Navbar.Link href="/following">
+            Following
+            </Navbar.Link>
             <button onClick={handleSignOut} className="bg-blue-500 text-white px-8   font-semibold border rounded" >Sign Out</button>
         </Navbar.Collapse>
         </Navbar>

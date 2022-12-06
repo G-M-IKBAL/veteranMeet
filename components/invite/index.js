@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-function Follow({email1,email2}){
+function Invite({email1,email2}){
 
     const router = useRouter();
 
@@ -41,7 +41,7 @@ function Follow({email1,email2}){
                 <div className="flex flex-col space-y-1">
                     <a rel="noopener noreferrer" href="#" className="text-sm font-semibold">{email2}</a>
                     {/* <a rel="noopener noreferrer" href="#" className="text-sm font-semibold">{name}</a> */}
-                    <button className="text-white p-2 bg-blue-500 text-md" onClick={handleFollow}>Follow</button>
+                    <button className="text-white bg-blue-500 p-2 text-md" onClick={handleFollow}>Accept</button>
                 </div>
             </div>
         </div>
@@ -69,4 +69,4 @@ export async function getServerSideProps({ req }){
   
   
 
-export default Follow;
+export default Invite;

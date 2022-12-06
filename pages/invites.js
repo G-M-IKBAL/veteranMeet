@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Follow from "../components/follow";
+import Invite from "../components/invite";
 function Invites(){
     return(
 
@@ -13,9 +13,9 @@ function Invites(){
             Invitations
         </h1>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        <Follow/>
-        <Follow/>
-        <Follow/>
+        <Invite/>
+        <Invite/>
+        <Invite/>
         </div>
       </div>
       

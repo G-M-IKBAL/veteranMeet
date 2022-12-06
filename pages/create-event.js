@@ -1,6 +1,16 @@
 import { useState } from "react";
 import ListBox from "../components/listbox";
 import Head from "next/head";
+import { useRouter } from 'next/router';
+
+
+const hobbies_arr = [
+	{ name: 'football' },
+	{ name: 'cricket' },
+	{ name: 'hockey' },
+	{ name: 'movies' },
+]
+
 
 function CreateEvent(){
 
@@ -8,9 +18,45 @@ function CreateEvent(){
     const[email,setEmail] =useState("");
     const[type,setType] =useState("");
     const[time,setTime] =useState("");
-    const[location,setlocation] =useState("");
-    const[description,setDescription] =useState("");
-    const[hobbies,setHobbies] =useState("");
+    const[location,setLocation] =useState("");
+    const[descreption,setDescription] =useState("");
+    
+	const[hobbies,setHobbies] =useState(hobbies_arr[0]);
+	
+	
+	
+
+	const router = useRouter()
+    
+
+
+	async function handleSubmit(event){
+
+		// values.descreption = selected;
+
+		event.preventDefault();
+
+		const values = {
+			email,name, type,time,location,descreption,hobbies
+		}
+
+        console.log("event values server = ",values);
+
+        const options = {
+            method: "POST",
+            headers : { 'Content-Type': 'application/json'},
+            body: JSON.stringify(values)
+        }
+
+        await fetch('http://localhost:3000/api/event/create-event', options)
+            .then(res => res.json())
+            .then((data) => {
+                if(data) router.push('http://localhost:3000/create-event')
+				console.log("event created");
+            })
+    }
+
+	
 
     return(
 
@@ -26,7 +72,7 @@ function CreateEvent(){
 						
 
 			<section className="">
-			<form  action="" className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
+			<form onSubmit={handleSubmit} action="" className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
 				<fieldset className="grid grid-cols-4 gap-6 p-10 pt-2 rounded-md  ">
 					<div className="space-y-2 col-span-full lg:col-span-1">
 						<p className="font-medium">Event Inormation</p>
@@ -36,41 +82,83 @@ function CreateEvent(){
 						
 						<div className="col-span-full sm:col-span-2">
 							<label htmlFor="email" className="text-sm">Email</label>
-							<input id="email" type="email" placeholder="Email" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
+							<input 
+							onChange={(e)=>{
+								
+								setEmail(e.target.value)
+							}} value={email}
+
+							id="email" type="email" placeholder="Email" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 						</div>
 						<div className="col-span-full sm:col-span-2">
 							<label htmlFor="name" className="text-sm">Name</label>
-							<input id="name" type="text" placeholder="Name" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
+							<input 
+							onChange={(e)=>{
+								
+								setName(e.target.value)
+							}} value={name}
+							
+							id="name" type="text" placeholder="Name" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 						</div>
 						<div className="col-span-full sm:col-span-2">
 							<label htmlFor="type" className="text-sm">type</label>
-							<input id="type" type="text" placeholder="type" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
+							<input 
+							onChange={(e)=>{
+								
+								setType(e.target.value)
+							}} value={type}
+							
+							id="type" type="text" placeholder="type" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 						</div>
 
 						<div className="col-span-full sm:col-span-2">
 							<label htmlFor="time" className="text-sm">time</label>
-							<input id="time" type={"time"} placeholder="time" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
+							<input 
+							onChange={(e)=>{
+								
+								setTime(e.target.value)
+							}} value={time}
+
+							id="time" type={"time"} placeholder="time" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 						</div>
 
 						<div className="col-span-full sm:col-span-2">
 							<label htmlFor="location" className="text-sm">location</label>
-							<input id="location" type={"text"} placeholder="location" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
+							<input 
+							
+							onChange={(e)=>{
+								
+								setLocation(e.target.value)
+							}} value={location}
+
+							id="location" type={"text"} placeholder="location" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 						</div>
 
 						<div className="col-span-full sm:col-span-2">
-							<label htmlFor="description" className="text-sm">description</label>
-							<input id="description" type={"text"} placeholder="description" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
+							<label htmlFor="descreption" className="text-sm">description</label>
+							<input 
+								onChange={(e)=>{
+								
+									setDescription(e.target.value)
+								}} value={descreption}
+								
+								
+							id="descreption" type={"text"} placeholder="description" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 						</div>
 
 						<div className="col-span-full sm:col-span-2">
-							<label htmlFor="description" className="text-sm">hobbies</label>
-							<ListBox/>
+							<label htmlFor="hobbies" className="text-sm">hobbies</label>
+							<ListBox  hobbies={hobbies} setHobbies={setHobbies} hobbies_arr={hobbies_arr} />
 						</div>
 
 						
 					</div>
 				</fieldset>
-				
+
+				{/* <button type={"submit"} className={`w-full px-8 py-3 font-bold rounded-md text-white dark:bg-[#1976d2] dark:text-gray-900 bg-[#1565c0] `}>Create</button> */}
+				<button type="submit" className="w-full p-3 bg-blue-500 text-white text-sm font-bold tracking-wide uppercase rounded ">Create</button>
+			
+			
 			</form>
 			</section>
 			</div>
