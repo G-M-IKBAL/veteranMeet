@@ -67,8 +67,8 @@ export default function Home() {
         <div className="grid gap-10 grid-cols-1 lg:grid-cols-2">
         
         {
-          posts.map((post)=>(
-            <Feed text={post.text} multimedia={post.multimedia} name={name}/>
+          posts.map((post,idx)=>(
+            <Feed text={post.text} key={idx} multimedia={post.multimedia} name={name}/>
           ))
           
         }

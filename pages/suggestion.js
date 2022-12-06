@@ -71,7 +71,7 @@ function Suggestion(){
             
             suggestions.map(
               (event,idx)=>(
-                <EventCard eventid={idx} email={event.email} name={event.name} descreption={event.description} type={event.type} time={event.time} location={event.location} hobbies={event.hobbies}   />
+                <EventCard key={idx} eventid={idx} email={event.email} name={event.name} descreption={event.description} type={event.type} time={event.time} location={event.location} hobbies={event.hobbies}   />
               )
             )
              
@@ -87,7 +87,7 @@ function Suggestion(){
             
             people.map(
               (email2,idx)=>(
-                <Follow  email1={email} email2={email2} />
+                <Follow key={idx}  email1={email} email2={email2} />
               )
             )
              
