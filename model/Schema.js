@@ -7,7 +7,9 @@ const userSchema = new Schema({
         password:String,
         contact:String,
         active_status:String,
-        hobbies:String,
+        hobbies: {
+            type: Array
+        },
         profession:String,
         city:String,
         followers:{type:Array},
