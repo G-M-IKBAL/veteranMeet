@@ -40,7 +40,7 @@ export default async function handler(req, res){
                     
                     // console.log(i)
 
-                    if(profile[j].hobbies[j] === all_events[i].hobbies[k])
+                    if(profile[0].hobbies[j] === all_events[i].hobbies[k])
                     {
                     
                         console.log("matched");

@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+import { Schema, model, models } from 'mongoose';
 
-const Post = new mongoose.Schema({
-    email:{
+const postSchema = new Schema({
+    email: {
         type: String,
         required: true
     },
@@ -9,10 +9,15 @@ const Post = new mongoose.Schema({
         type: String,
         required: true
     },
-    multimedia: {
-         
+    img:
+    {
+        data: Buffer,
+        contentType: String
     }
 
 })
 
-module.exports = mongoose.model('Post', Post)
+
+const Posts = models.post || model('post', postSchema);
+
+export default Posts;

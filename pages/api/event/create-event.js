@@ -23,7 +23,7 @@ export default async function handler(req, res){
         
         Events.create({ eventid:num, email,name, type,time,location,descreption,hobbies }, function(err, data){
             if(err) return res.status(404).json({ err });
-            res.status(201).json({ status : true, user: data})
+            res.status(201).json({ status : true, event: data})
         })
 
 
