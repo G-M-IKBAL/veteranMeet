@@ -1,6 +1,51 @@
 import Head from "next/head";
-import Follow from "../components/follow";
+import FollowingCard from "../components/following";
+
+import { getSession, useSession, signOut } from "next-auth/react"
+import { useState,useEffect } from "react";
 function Following(){
+
+  const { data: session } = useSession();
+  const [email,setEmail] =useState(session.user.email);
+  const [following,setFollowing] = useState([]);
+
+
+    useEffect(()=>{
+
+        displayFollowing()
+
+    },[]);
+
+
+    async function displayFollowing(){
+
+    
+    const values = {
+      email,
+    }
+
+      console.log("follow request values to server = ",values);
+
+      const options = {
+          method: "POST",
+          headers : { 'Content-Type': 'application/json'},
+          body: JSON.stringify(values)
+      }
+
+      await fetch('http://localhost:3000/api/follow/following', options)
+          .then(res => res.json())
+          .then((data) => {
+              if(data) setFollowing(data.results); 
+              console.log("follow ");
+          })
+
+
+
+    }
+
+
+
+
     return(
 
     <div >
@@ -13,15 +58,36 @@ function Following(){
             People you follow
         </h1>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        <Follow/>
-        <Follow/>
-        <Follow/>
+        {
+          following.map((following)=> (
+            <FollowingCard email={following}/>
+          ))
+        }
         </div>
       </div>
       
     </div>
 
     )
+}
+
+
+
+export async function getServerSideProps({ req }){
+  const session = await getSession({ req })
+
+  if(!session){
+    return {
+      redirect : {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { session }
+  }
 }
 
 

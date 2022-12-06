@@ -3,7 +3,9 @@ import { useEffect,useState } from "react";
 import EventCard from "../components/event";
 
 import { getSession, useSession, signOut } from "next-auth/react"
+import Follow from "../components/follow";
 
+const people = ["test@123.com","ahmad@gmail.com"];
 
 function Suggestion(){
 
@@ -18,7 +20,7 @@ function Suggestion(){
 
     useEffect(()=>{
       handle1()
-      
+
     },[])
 
 
@@ -61,6 +63,9 @@ function Suggestion(){
         <h1 className="p-10 text-5xl font-bold leading-none sm:text-6xl">
             Suggestions for you {name}
         </h1>
+        <h2 className="p-10 text-1xl font-bold leading-none sm:text-3xl">
+            Events 
+        </h2>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {
             
@@ -72,6 +77,23 @@ function Suggestion(){
              
           }
         </div>
+
+        <h2 className="p-10 text-1xl font-bold leading-none sm:text-3xl">
+            People you can follow
+        </h2>
+
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          {
+            
+            people.map(
+              (email2,idx)=>(
+                <Follow  email1={email} email2={email2} />
+              )
+            )
+             
+          }
+        </div>
+
       </div>
       
     </div>
