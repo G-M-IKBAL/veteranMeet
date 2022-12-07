@@ -24,38 +24,44 @@ export default async function handler(req, res){
         //DB event
         //profile_DB users
 
-        const all_events= await Events.find()
-        const profile= await Users.find({email:req.body.email})
-        const results=[];
-        for(let i=0;i<(all_events).length;i++)
-        {
-            
-            for(let j=0;j<(profile[0].hobbies).length;j++)
-            {
-            
-                for(let k=0;k<(all_events[i].hobbies).length;k++)
-                {
+        const all_events = await Events.find()
+        const profile = await Users.findOne({ email: req.body.email })
+        const results = [];
+        
+        // console.log(profile)
+    
+    
+        for (let i = 0; i < (all_events).length; i++) {
+            let Flag = false
+    
+            for (let j = 0; j < (profile.hobbies).length; j++) {
+    
+                for (let k = 0; k < (all_events[i].hobbies).length; k++) {
+                    
                     //console.log(all_events[i].hobbies[k]);
-                    //console.log(profile[j].hobbies[j]);
-                    
+                    // console.log(profile[j].hobbies[j]);
                     // console.log(i)
-
-                    if(profile[0].hobbies[j] === all_events[i].hobbies[k])
-                    {
-                    
-                        console.log("matched");
-                    
-                        results.push(all_events[i])
-                        console.log("results in server",results);
-                        break;
-
+    
+                    if (Flag === false) {
+                        if (profile.hobbies[j] === all_events[i].hobbies[k]) // this line was changefrom profile[j] to zero
+                        {
+    
+                            // console.log("matched");
+    
+                            results.push(all_events[i])
+                            console.log("results :",results)
+                            Flag = true
+                            break;
+    
+                        }
+    
                     }
-
+    
                 }
             }
         }
-
-        // res.send(results)
+    
+    
 
         res.status(201).json({ status : true, results: results})
 

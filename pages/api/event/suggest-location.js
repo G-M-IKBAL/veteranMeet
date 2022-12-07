@@ -13,33 +13,23 @@ export default async function handler(req, res){
         // const { email,name, type,time,location,descreption,hobbies } = req.body;
         console.log(req.body);
 
-        // check duplicate users
-        
-        
-        //  if(err) return res.status(404).json({ err });
-        //     res.status(201).json({ status : true, user: data})
 
-        //DB event
-        //profile_DB users
-
-        const all_events= await Events.find({location:req.body.location})
-        const results=[]
-
+        const all_events = await Events.find({ location: req.body.location })
+        const results = []
+    
         const given_location = req.body.location.toLowerCase()
-
-
-            for(let i=0;i<(all_events).length;i++)
-            {
-                //console.log(all_events[i].location.toLowerCase())
-                if( (all_events[i].location).toLowerCase() === given_location)
-                {
-                    console.log(all_events)
-
-                    results.push(all_events)
-                    
-
-                }
+    
+    
+        for (let i = 0; i < (all_events).length; i++) {
+            //console.log(all_events[i].location.toLowerCase())
+            if ((all_events[i].location).toLowerCase() === given_location) {
+                console.log(all_events)
+    
+                results.push(all_events[i])
+    
+    
             }
+        }
 
         res.status(201).json({ status : true, results: results})
 
