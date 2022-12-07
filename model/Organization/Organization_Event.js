@@ -39,6 +39,6 @@ const organizationEventSchema = new Schema({
 })
 
 
-const Organization_Event = model('Organization_Events', organizationEventSchema);
+const Organization_events = models.organization_event || model('organization_event', organizationEventSchema);
 
-export default Organization_Event;
+export default Organization_events;

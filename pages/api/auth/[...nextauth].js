@@ -3,7 +3,11 @@ import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import connectMongo from '../../../database/conn'
+
 import Users from '../../../model/Schema'
+import Organization_accounts from '../../../model/Organization/organization_account';
+
+
 import { compare } from 'bcryptjs';
 
 export default NextAuth({
@@ -23,20 +27,48 @@ export default NextAuth({
                 connectMongo().catch(error => { error: "Connection Failed...!"})
 
                 // check user existance
-                const result = await Users.findOne( { email : credentials.email})
-                if(!result){
-                    throw new Error("No user Found with Email Please Sign Up...!")
-                }
-
-                // compare()
-                const checkPassword = await compare(credentials.password, result.password);
                 
-                // incorrect password
-                if(!checkPassword || result.email !== credentials.email){
-                    throw new Error("Username or Password doesn't match");
-                }
+                const accCheck = credentials.email.split("@");
+                
+                if(accCheck[1]==="org.com")
+                {
+                    const result = await Organization_accounts.findOne( { email : credentials.email})
+                    if(!result){
+                    throw new Error("No Organization Found with Email Please Sign Up...!")
+                    }
 
-                return result;
+                    // compare()
+                    const checkPassword = await compare(credentials.password, result.password);
+                    
+                    // incorrect password
+                    if(!checkPassword || result.email !== credentials.email){
+                        throw new Error("Email or Password doesn't match");
+                    }
+
+                    return result;
+
+                }
+                else{
+
+                    const result = await Users.findOne( { email : credentials.email})
+                    if(!result){
+                        throw new Error("No user Found with Email Please Sign Up...!")
+                    }
+
+                    // compare()
+                    const checkPassword = await compare(credentials.password, result.password);
+                    
+                    // incorrect password
+                    if(!checkPassword || result.email !== credentials.email){
+                        throw new Error("Email or Password doesn't match");
+                    }
+
+                    return result;
+
+                }
+                
+
+                
 
             }
         })

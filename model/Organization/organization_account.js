@@ -12,6 +12,6 @@ const organizationAccountSchema = new Schema({
 
 // const Events = models.organization_account || model('Organization_account', Organization_account);
 
-const Organization_account = model('Organization_account', organizationAccountSchema);
+const Organization_accounts = models.organization_account || model('organization_account', organizationAccountSchema);
 
-export default Organization_account;
+export default Organization_accounts;
