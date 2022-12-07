@@ -9,12 +9,27 @@ import { useFormik } from 'formik';
 import { registerValidate } from '../lib/validate'
 import { useRouter } from 'next/router';
 import ListBox from '../components/listbox';
+import Category from '../components/category';
 
 const hobbies_arr = [
 	{ name: 'football' },
 	{ name: 'cricket' },
 	{ name: 'hockey' },
 	{ name: 'movies' },
+]
+
+
+
+// const categories_arr = [
+// 	{ name: 'NGO' },
+// 	{ name: 'Educational Institution' },
+// 	{ name: 'Organization' }
+// ]
+
+const categories_arr = [
+	'NGO' ,
+	'Educational Institution',
+	'Organization'
 ]
 
 
@@ -34,6 +49,11 @@ export default function Register(){
     const[city,setCity] =useState("");
 
 
+    //organization
+    const[name_of_org,setNameOfOrganization] =useState("");
+    const [category,setCategory] =useState(categories_arr[0]);
+
+
     const [userForm,setUserForm] =useState(true);
     const [organizationForm,setOrganizationForm] =useState(false);
 	
@@ -41,10 +61,10 @@ export default function Register(){
     console.log(organizationForm);
 
 
-    async function handleSubmit(event){
+    async function handleSubmit1(event){
 
         event.preventDefault()
-
+        
 
 		const values = {
 			email,name,password,contact,active_status,hobbies,profession,city 
@@ -67,6 +87,36 @@ export default function Register(){
             })
     }
 
+
+
+
+
+    async function handleSubmit2(event){
+
+        event.preventDefault();
+        
+
+		const values = {
+			email,name_of_org,password,contact,category,city 
+		}
+
+
+
+        console.log("register values to server = ",values);
+        
+        const options = {
+            method: "POST",
+            headers : { 'Content-Type': 'application/json'},
+            body: JSON.stringify(values)
+        }
+
+        await fetch('http://localhost:3000/api/auth/signup-org', options)
+            .then(res => res.json())
+            .then((data) => {
+                if(data) router.push('http://localhost:3000')
+            })
+    }
+
     return (
         <Layout>
 
@@ -83,7 +133,7 @@ export default function Register(){
                     <button onClick={()=>{setUserForm(true)
                     setOrganizationForm(false)
                     }} className='text-white p-2 bg-blue-500 text-lg font-bold rounded-xl' >User</button>
-                    <p className= 'text-lg font-bold p-2 text-gray-400'> or </p>
+                    <p className='text-lg font-bold p-2 text-gray-400'> or </p>
                     <button onClick={()=>{setOrganizationForm(true)
                     setUserForm(false)}} className='text-white p-2 bg-blue-500 text-lg font-bold  rounded-xl'>organization</button>
                 </div>
@@ -93,7 +143,7 @@ export default function Register(){
             {
             
             userForm===true?    
-            <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
+            <form className='flex flex-col gap-5' onSubmit={handleSubmit1}>
                 <div className={`${styles.input_group} `}>
                     <input 
                     type="text"
@@ -220,18 +270,18 @@ export default function Register(){
                 </div>
         </form>
         :
-        <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
+        <form className='flex flex-col gap-5' onSubmit={handleSubmit2}>
             <div className={`${styles.input_group} `}>
                 <input 
                 type="text"
-                name='Username'
+                name='name_of_org'
                 placeholder='Name'
                 className={styles.input_text}
                 
                 onChange={(e)=>{
                             
-                    setName(e.target.value)
-                }} value={name}
+                    setNameOfOrganization(e.target.value)
+                }} value={name_of_org}
 
                 />
                 <span className='icon flex items-center px-4'>
@@ -323,6 +373,8 @@ export default function Register(){
                 />
             </div>
 
+            {/* <ListBox  category={category} setCategory={setCategory} categories_arr={categories_arr} /> */}
+            <Category category={category} setCategory={setCategory} categories_arr={categories_arr}/>
             
             <div className="input-button">
                 <button type='submit' className={styles.button}>

@@ -12,7 +12,7 @@ export default async function handler(req, res){
     if(req.method === 'POST'){
 
         if(!req.body) return res.status(404).json({ error: "Don't have form data...!"});
-        const { name_of_org, email, password,contact,city } = req.body;
+        const { name_of_org, email, password,contact,city,category } = req.body;
         console.log("org account information server = ",req.body);
 
         // check duplicate users
@@ -23,6 +23,7 @@ export default async function handler(req, res){
         Organization_account.create({ name_of_org, email, password : await hash(password, 12),category,contact,city         
         }, function(err, data){
             if(err) return res.status(404).json({ err });
+            console.log(data);
             res.status(201).json({ status : true, organization: data})
         })
 
