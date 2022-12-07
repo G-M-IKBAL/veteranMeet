@@ -4,6 +4,7 @@ import EventCard from "../components/event";
 
 import { getSession, useSession, signOut } from "next-auth/react"
 import Follow from "../components/follow";
+import SearchBar from "../components/search";
 
 const people = ["test@123.com","ahmad@gmail.com"];
 
@@ -15,16 +16,54 @@ function Suggestion(){
   const [email,setEmail] =useState(session.user.email);
   const [name,setName] =useState(session.user.name);
 
+  const [location,setLocation] =useState("");
   
- 
+  
 
     useEffect(()=>{
+
       handle1()
+
+    },[location])
+
+    useEffect(()=>{
+
+      handle2()
 
     },[])
 
 
+
     async function handle1(){
+
+      // values.descreption = selected;
+      const values = {location};
+
+      const options = {
+          method: "POST",
+          headers : { 'Content-Type': 'application/json'},
+          body: JSON.stringify(values)
+      }
+
+      await fetch('http://localhost:3000/api/event/suggest-location', options)
+          .then(res => res.json())
+          .then((data) => {
+              if(data) {
+
+                console.log(data);
+                setSeggestions(data.results) 
+                console.log("data");
+              }
+              else{
+                console.log("no data");
+              }
+              
+          })
+      }
+
+
+
+    async function handle2(){
 
       // values.descreption = selected;
       const values = {email};
@@ -64,7 +103,26 @@ function Suggestion(){
             Suggestions for you {name}
         </h1>
         <h2 className="p-10 text-1xl font-bold leading-none sm:text-3xl">
-            Events 
+            Events based on location
+        </h2>
+        <div className="p-10">
+          <SearchBar location={location} setLocation={setLocation} />
+        </div>
+        
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          {
+            
+            suggestions.map(
+              (event,idx)=>(
+                <EventCard key={idx} eventid={idx} email={event.email} name={event.name} descreption={event.description} type={event.type} time={event.time} location={event.location} hobbies={event.hobbies}   />
+              )
+            )
+             
+          }
+        </div>
+        
+        <h2 className="p-10 text-1xl font-bold leading-none sm:text-3xl">
+            Events based on hobbies
         </h2>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {
