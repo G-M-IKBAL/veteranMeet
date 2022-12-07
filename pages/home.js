@@ -64,15 +64,19 @@ export default function Home() {
         <h1 className="p-10  text-center text-5xl font-bold leading-none sm:text-6xl">
             Feed
         </h1>
-        <div className="mt-20 flex flex-col justify-items-center space-y-10">
-        
-        {
-          posts.map((post,idx)=>(
-            <Feed text={post.text} key={idx} multimedia={post.multimedia} email={email} />
-          ))
+        <div className="mt-20 flex justify-center space-y-10">
           
-        }
-        
+          <div>
+          {
+            posts.map((post,idx)=>(
+
+              <Feed text={post.text} key={idx} multimedia={post.multimedia} email={email} />
+              
+            ))
+            
+          }  
+          </div>
+          
         </div>
       </div>
 
