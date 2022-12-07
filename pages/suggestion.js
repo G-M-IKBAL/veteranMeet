@@ -12,6 +12,7 @@ function Suggestion(){
 
   const [suggestions,setSeggestions] = useState([]);
 
+  const [searches,setSearches] = useState([]);
   const { data: session } = useSession();
   const [email,setEmail] =useState(session.user.email);
   const [name,setName] =useState(session.user.name);
@@ -51,7 +52,7 @@ function Suggestion(){
               if(data) {
 
                 console.log(data);
-                setSeggestions(data.results) 
+                setSearches(data.results) 
                 console.log("data");
               }
               else{
@@ -112,7 +113,7 @@ function Suggestion(){
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {
             
-            suggestions.map(
+            searches.map(
               (event,idx)=>(
                 <EventCard key={idx} eventid={idx} email={event.email} name={event.name} descreption={event.description} type={event.type} time={event.time} location={event.location} hobbies={event.hobbies}   />
               )
