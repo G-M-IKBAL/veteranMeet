@@ -2,7 +2,7 @@ function SearchBar({location,setLocation}){
 
     return(
         <fieldset className="w-full space-y-1 dark:text-gray-100">
-            <label for="Search" className="hidden">Search</label>
+            <label htmlFor="Search" className="hidden">Search</label>
                 <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                         <button type="button" title="search" className="p-1 focus:outline-none focus:ring">
