@@ -60,15 +60,15 @@ export default function Home() {
             <Feed text={post.text} multimedia={post.multimedia}/>
         ))
       } */}
-      <div className="p-32" >
-        <h1 className="p-10 text-center text-5xl font-bold leading-none sm:text-6xl">
+      <div className="p-32 pt-0" >
+        <h1 className="p-10  text-center text-5xl font-bold leading-none sm:text-6xl">
             Feed
         </h1>
-        <div className="grid gap-10 grid-cols-1 lg:grid-cols-2">
+        <div className="mt-20 flex flex-col justify-items-center space-y-10">
         
         {
           posts.map((post,idx)=>(
-            <Feed text={post.text} key={idx} multimedia={post.multimedia} name={name}/>
+            <Feed text={post.text} key={idx} multimedia={post.multimedia} email={email} />
           ))
           
         }

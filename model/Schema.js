@@ -7,15 +7,27 @@ const userSchema = new Schema({
         password:String,
         contact:String,
         active_status:String,
+        stars:{type:Number,default:0},
         hobbies: {
             type: Array
+        },
+        organizations:{
+            type:Array,
+            default:[]
         },
         profession:String,
         city:String,
         followers:{type:Array},
         following:{type:Array},
-        starts:{},
-        intrestedEvents:{}    
+        intrestedEvents:{type:Array,default:[]},
+        invitations:{type:Array,default:[]},
+        category:{
+            type:String,
+            default:"none"
+        }
+
+
+        
 
 })
 
