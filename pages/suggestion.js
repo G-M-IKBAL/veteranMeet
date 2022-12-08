@@ -6,7 +6,7 @@ import { getSession, useSession, signOut } from "next-auth/react"
 import Follow from "../components/follow";
 import SearchBar from "../components/search";
 
-const people = ["test@123.com","ahmad@gmail.com"];
+// const people = ["test@123.com","ahmad@gmail.com"];
 
 function Suggestion(){
 
@@ -17,19 +17,26 @@ function Suggestion(){
   const [email,setEmail] =useState(session.user.email);
   const [name,setName] =useState(session.user.name);
 
+
   const [location,setLocation] =useState("");
-  
-  
 
+  const [people,setPeople] =useState([]);
+  
+  
+    // for searching event on location
     useEffect(()=>{
-
+      
       handle1()
 
     },[location])
 
+    
     useEffect(()=>{
 
-      handle2()
+      // for suggesting events based on hobbies
+      //handle2()
+       //for suggesting users to follow them
+      handle3()
 
     },[])
 
@@ -60,7 +67,12 @@ function Suggestion(){
               }
               
           })
-      }
+    }
+
+
+      
+
+
 
 
 
@@ -89,7 +101,39 @@ function Suggestion(){
               }
               
           })
-      }
+    }
+
+
+    ///to follow people
+
+
+    async function handle3(){
+
+      // values.descreption = selected;
+      const values = {email};
+
+      // const options = {
+      //     method: "GET",
+      //     headers : { 'Content-Type': 'application/json'},
+      //     // body: JSON.stringify(values)
+      // }
+
+      await fetch(`http://localhost:3000/api/follow/follow-results/${email}`)
+          .then(res => res.json())
+          .then((data) => {
+              if(data) {
+
+                console.log(data);
+                setPeople(data.results) 
+                console.log("data");
+              }
+              else{
+                console.log("no data");
+              }
+              
+          })
+
+    }
 
 
     return(
@@ -138,7 +182,7 @@ function Suggestion(){
         </div>
 
         <h2 className="p-10 text-1xl font-bold leading-none sm:text-3xl">
-            People you can follow
+          People with similar interests
         </h2>
 
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
@@ -146,6 +190,7 @@ function Suggestion(){
             
             people.map(
               (email2,idx)=>(
+
                 <Follow key={idx}  email1={email} email2={email2} />
               )
             )
