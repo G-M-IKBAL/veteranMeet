@@ -20,7 +20,7 @@ function CreateEvent(){
     const[time,setTime] =useState("");
     const[location,setLocation] =useState("");
     const[descreption,setDescription] =useState("");
-    
+	const [stars,setStars] =useState("");
 	const[hobbies,setHobbies] =useState(hobbies_arr[0]);
 	
 	
@@ -37,23 +37,53 @@ function CreateEvent(){
 		event.preventDefault();
 
 		const values = {
-			email,name, type,time,location,descreption,hobbies
+			email,name, type,time,location,stars,descreption,hobbies
 		}
 
         console.log("event values server = ",values);
 
-        const options = {
-            method: "POST",
-            headers : { 'Content-Type': 'application/json'},
-            body: JSON.stringify(values)
-        }
+		const accCheck = email.split("@");
 
-        await fetch('http://localhost:3000/api/event/create-event', options)
-            .then(res => res.json())
-            .then((data) => {
-                if(data) router.push('http://localhost:3000/create-event')
-				console.log("event created");
-            })
+		if(accCheck[1]!=="org.com")
+		{
+			console.log("event values server = ",values);
+
+			const options = {
+				method: "POST",
+				headers : { 'Content-Type': 'application/json'},
+				body: JSON.stringify(values)
+			}
+			await fetch('http://localhost:3000/api/event/create-event', options)
+				.then(res => res.json())
+				.then((data) => {
+					if(data) router.push('http://localhost:3000/create-event')
+					console.log("event created");
+				})
+
+
+		}
+		else{
+
+			console.log("event values server = ",values);
+
+			const options = {
+				method: "POST",
+				headers : { 'Content-Type': 'application/json'},
+				body: JSON.stringify(values)
+			}
+
+			await fetch('http://localhost:3000/api/event/create-org-event', options)
+				.then(res => res.json())
+				.then((data) => {
+					if(data) router.push('http://localhost:3000/create-event')
+					console.log("org event created");
+				})
+
+		}
+
+        
+
+        
     }
 
 	
@@ -144,6 +174,18 @@ function CreateEvent(){
 								
 								
 							id="descreption" type={"text"} placeholder="description" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
+						</div>
+
+						<div className="col-span-full sm:col-span-2">
+							<label htmlFor="stars" className="text-sm">stars</label>
+							<input 
+								onChange={(e)=>{
+
+									setStars(e.target.value)
+								}} value={stars}
+
+
+							id="stars" type={"number"} max="5000" placeholder="stars" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 " />
 						</div>
 
 						<div className="col-span-full sm:col-span-2">
