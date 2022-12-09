@@ -80,7 +80,7 @@ function Suggestion(){
 
       // values.descreption = selected;
 
-      await fetch(`http://localhost:3000/api/event/suggest-events/${email}`)
+      await fetch(`http://localhost:3000/api/about/user/${email}`)
           .then(res => res.json())
           .then((data) => {
               if(data) {
@@ -169,7 +169,7 @@ function Suggestion(){
             :
             suggestions.map(
               (event,idx)=>(
-                <EventCard key={idx} eventid={idx} email={event.email} name={event.name} descreption={event.description} type={event.type} time={event.time} location={event.location} hobbies={event.hobbies}   />
+                <EventCard key={idx} eventid={idx} email={event.email} name={event.name} descreption={event.descreption} type={event.type} time={event.time} location={event.location} hobbies={event.hobbies}   />
               )
             )
              
