@@ -121,7 +121,7 @@ function Suggestion(){
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {
             suggestions.length === 0?
-            <div className="p-6 pl-16 space-y-6 overflow-hidden rounded-lg">Couldn't found any suggestion for you</div>
+            <div className="p-6 pl-16 space-y-6 overflow-hidden rounded-lg">Could not found any suggestions for you</div>
             :
             suggestions.map(
               (event,idx)=>(
