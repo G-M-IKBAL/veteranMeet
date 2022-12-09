@@ -67,22 +67,15 @@ function Suggestion(){
     async function handle2(){
 
       // values.descreption = selected;
-      const values = {email};
 
-      const options = {
-          method: "POST",
-          headers : { 'Content-Type': 'application/json'},
-          body: JSON.stringify(values)
-      }
-
-      await fetch('http://localhost:3000/api/event/suggest-events', options)
+      await fetch(`http://localhost:3000/api/event/suggest-events/${email}`)
           .then(res => res.json())
           .then((data) => {
               if(data) {
 
                 console.log(data);
                 setSeggestions(data.results) 
-                console.log("data");
+                console.log("data",suggestions);
               }
               else{
                 console.log("no data");
@@ -127,7 +120,9 @@ function Suggestion(){
         </h2>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {
-            
+            suggestions.length === 0?
+            <div className="p-6 pl-16 space-y-6 overflow-hidden rounded-lg">Couldn't found any suggestion for you</div>
+            :
             suggestions.map(
               (event,idx)=>(
                 <EventCard key={idx} eventid={idx} email={event.email} name={event.name} descreption={event.description} type={event.type} time={event.time} location={event.location} hobbies={event.hobbies}   />
@@ -149,6 +144,7 @@ function Suggestion(){
                 <Follow key={idx}  email1={email} email2={email2} />
               )
             )
+            
              
           }
         </div>

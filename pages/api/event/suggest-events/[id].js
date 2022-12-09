@@ -1,17 +1,19 @@
-import Events from "../../../model/event"
-import connectMongo from '../../../database/conn';
-import Users from "../../../model/Schema";
+import Events from "../../../../model/event"
+import connectMongo from '../../../../database/conn';
+import Users from "../../../../model/Schema";
 
 
 export default async function handler(req, res){
     connectMongo().catch(error => res.json({ error: "Connection Failed...!"}))
+    
 
     // only post method is accepted
-    if(req.method === 'POST'){
+    if(req.method === 'GET'){
 
-        if(!req.body) return res.status(404).json({ error: "Don't have form data...!"});
+        if(!req.query) return res.status(404).json({ error: "Don't have form data...!"});
         // const { email,name, type,time,location,descreption,hobbies } = req.body;
         
+        const { id } = req.query
         
         // console.log(req.body);
 
@@ -25,7 +27,7 @@ export default async function handler(req, res){
         //profile_DB users
 
         const all_events = await Events.find()
-        const profile = await Users.findOne({ email: req.body.email })
+        const profile = await Users.findOne({ email: id })
         const results = [];
         
         // console.log(profile)
@@ -49,7 +51,7 @@ export default async function handler(req, res){
                             // console.log("matched");
     
                             results.push(all_events[i])
-                            console.log("results :",results)
+                            console.log("results inside :",results)
                             Flag = true
                             break;
     
