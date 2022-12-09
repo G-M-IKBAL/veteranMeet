@@ -34,7 +34,7 @@ function Suggestion(){
     useEffect(()=>{
 
       // for suggesting events based on hobbies
-      //handle2()
+      handle2()
        //for suggesting users to follow them
       handle3()
 
