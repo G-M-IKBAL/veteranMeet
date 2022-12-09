@@ -80,14 +80,14 @@ function Suggestion(){
 
       // values.descreption = selected;
 
-      await fetch(`http://localhost:3000/api/about/user/${email}`)
+      await fetch(`http://localhost:3000/api/event/suggest-events/${email}`)
           .then(res => res.json())
           .then((data) => {
               if(data) {
 
                 console.log(data);
                 setSeggestions(data.results) 
-                console.log("data",suggestions);
+                console.log("data is here = ",suggestions);
               }
               else{
                 console.log("no data");
