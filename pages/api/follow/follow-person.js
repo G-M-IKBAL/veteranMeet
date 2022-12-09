@@ -13,7 +13,7 @@ export default async function handler(req, res){
         const id = await Users.findOne({email: req.body.email1})
         const id2 =await Users.findOne({email: req.body.email2}) 
 
-
+        
         id.following.push(req.body.email2)
         id.save()
 
