@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import ListBox from '../components/listbox';
 import Category from '../components/category';
 
+
 const hobbies_arr = [
 	{ name: 'football' },
 	{ name: 'cricket' },
