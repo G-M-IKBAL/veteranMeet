@@ -37,7 +37,7 @@ export default async function handler(req, res){
                     {
                         
                 
-                        if(profile.hobbies[j] === all_profiles[i].hobbies[k]) // this line was changefrom profile[j] to zero
+                        if(profile.hobbies[j].name === all_profiles[i].hobbies[k].name) // this line was changefrom profile[j] to zero
                         {
                         
                             console.log("matched");
