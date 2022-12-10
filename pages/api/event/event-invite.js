@@ -2,6 +2,7 @@ import connectMongo from '../../../database/conn';
 
 import Users from "../../../model/Schema";
 import Organization_events from "../../../model/Organization/Organization_Event";
+import Events from '../../../model/event';
 
 export default async function handler(req, res){
     connectMongo().catch(error => res.json({ error: "Connection Failed...!"}))
@@ -16,6 +17,7 @@ export default async function handler(req, res){
 
         if(accCheck[1]==="org.com")
         {
+            await Organization_events.findOneAndUpdate({ eventid: req.body.eventid }, { inviteSent: true })
             const all_org_profiles = await Users.find()  //vetrens org_profile
             const org_event = await Organization_events.findOne({ eventid: req.body.eventid })   //organization org_profile
             // const org_event = await org_profile_DB.findOne({ email: req.body.email })   //organization org_profile
@@ -51,6 +53,8 @@ export default async function handler(req, res){
             
         }
         else{
+
+            await Events.findOneAndUpdate({ eventid: req.body.eventid }, { inviteSent: true })
 
             const vet_profile = await Users.findOne({ email: req.body.email })   //veteran profile
             let followers = vet_profile.followers
