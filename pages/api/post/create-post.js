@@ -46,6 +46,7 @@ export default function handler(req, res){
 
                 var oldPath = files.multimedia.filepath;
                 var newPath = `./public/uploads/${uploadId}.${files.multimedia.originalFilename.split(".")[1]}`;
+                var savePath = `uploads/${uploadId}.${files.multimedia.originalFilename.split(".")[1]}`;
                 mv(oldPath, newPath,{mkdirp: true}, function(err) {
                     if(err){
                         return (res.status(400).json({ message: "ERROR saving file"}));
@@ -55,7 +56,7 @@ export default function handler(req, res){
                         Posts.create({
                             email: email,
                             text: text,
-                            multimedia: newPath
+                            multimedia: savePath
                         })
 
                     }

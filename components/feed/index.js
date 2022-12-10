@@ -21,7 +21,11 @@ function Feed({text,multimedia,email}){
 			</svg>
 		</button>
 	</div>
-	<img src="https://source.unsplash.com/301x301/?random" alt="" className="object-cover object-center w-full h-72 dark:bg-gray-500" />
+	{
+		multimedia!==""? 
+		<img src={multimedia} alt="image" className="object-cover object-center w-full h-72 dark:bg-gray-500" />
+		: <></>
+	}
 	<div className="p-3">
 		<div className="flex items-center justify-between">
 			<div className="flex items-center space-x-3">
