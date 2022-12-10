@@ -6,7 +6,7 @@ export default async function handler(req, res){
     if(req.method === 'GET'){
         const {id} = req.query;
         if(!req.query) return res.status(404).json({ error: "Don't have form data...!"});
-        const results = await Organization_events.find({ email: id })          
+        const results = await Organization_events.find({ email: id, inviteSent:false })          
         res.status(201).json({ status : true, results: results})
     } else{
         res.status(500).json({ message: "HTTP method not valid only POST Accepted"})

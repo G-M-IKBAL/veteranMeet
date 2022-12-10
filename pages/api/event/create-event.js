@@ -21,7 +21,7 @@ export default async function handler(req, res){
         var max = 10000
         var num = Math.floor(Math.random() * max)
         
-        Events.create({ eventid:num, email,name, type,time,location,descreption,hobbies }, function(err, data){
+        Events.create({ eventid:num, email,name, type,time,location,descreption,hobbies,inviteSent:false }, function(err, data){
             if(err) return res.status(404).json({ err });
             res.status(201).json({ status : true, event: data})
         })

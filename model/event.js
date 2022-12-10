@@ -35,6 +35,9 @@ const eventSchema = new Schema({
     },
     hobbies: {
         type: Array
+    },
+    inviteSent:{
+        type: Boolean
     }
 
 })
