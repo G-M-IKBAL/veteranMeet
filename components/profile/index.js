@@ -22,7 +22,7 @@ function Profile({email}){
 
     async function handle(){
 
-  
+        
         await fetch(`http://localhost:3000/api/about/user/${email}`)
             .then(res => res.json())
             .then((data) => {
