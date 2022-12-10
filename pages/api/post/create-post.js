@@ -1,55 +1,81 @@
 import Posts from "../../../model/post";
 import connectMongo from '../../../database/conn';
+import formidable from "formidable";
+import mv from "mv";
+
+export const config = {
+    api: {
+       bodyParser: false,
+    }
+};
+
 
 export default function handler(req, res){
     connectMongo().catch(error => res.json({ error: "Connection Failed...!"}))
 
-    // only post method is accepted
-    if(req.method === 'POST'){
+    const form =formidable()
+    form.parse(req,(err,fields,files)=> {
+        if (err) console.log(err);
 
-        if(!req.body) return res.status(404).json({ error: "Don't have form data...!"});
-        else if(!req.files){
+        if(req.method === "POST")
+        {
+        
+            if(!fields) return res.status(404).json({ error: "Don't have form data...!"});
+            else if(fields.multimedia==="undefined") {
 
-            const { email,text} = req.body;
-       
+                console.log(true)
+                const { email,text} = fields;
+        
 
-            Posts.create({
-                email: email,
-                text: text,
-                multimedia: ""
-            }, function(err, data){
-                if(err) return res.status(404).json({ err });
-                res.status(201).json({ status : true, post: data})
-            })
-            
-
-        }
-        else if(req.files.file){
-
-            const file = req.files.file;
-            const uploadId = `${Math.random().toString(36)}${Math.random().toString(36)}`;
-            const path = `./uploads/${uploadId}.${file.name.split(".")[1]}`;
-            file.mv(path, (err) => {
-                if (err) {
-                    return next(new errorHandler(400, "Error saving file", err));
-                }
                 Posts.create({
-                    email: req.body.email,
-                    text: req.body.text,
-                    multimedia: path
+                    email: email,
+                    text: text,
+                    multimedia: ""
+                }, function(err, data){
+                    if(err) return res.status(404).json({ err });
+                    res.status(201).json({ status : true, post: data})
                 })
-                res.status(200).json({ path: uploadId });
-            })
+
+            }
+            else{
+                const { email,text} = fields;
+                // console.log(fields, files)
+                console.log("files.multi = ",files)
+
+                const uploadId = `${Math.random().toString(36)}${Math.random().toString(36)}`;
+
+                var oldPath = files.multimedia.filepath;
+                var newPath = `./public/uploads/${uploadId}.${files.multimedia.originalFilename.split(".")[1]}`;
+                mv(oldPath, newPath,{mkdirp: true}, function(err) {
+                    if(err){
+                        return (res.status(400).json({ message: "ERROR saving file"}));
+                    }
+                    else{
+
+                        Posts.create({
+                            email: email,
+                            text: text,
+                            multimedia: newPath
+                        })
+
+                    }
+                });
+
+
+                res.status(200).json({ fields, files,uploadId })
+                
+
+            }
 
         }
+        else{
+            res.status(500).json({ message: "HTTP method not valid only POST Accepted"})
+        }    
         
-        
-       
 
 
-    }
-    else{
-        res.status(500).json({ message: "HTTP method not valid only POST Accepted"})
-    }
+    })
+
+    
 
 }
