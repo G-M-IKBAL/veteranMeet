@@ -17,7 +17,7 @@ export default async function handler(req, res){
         id.following.push(req.body.email2)
         id.save()
 
-        id2.followers.push(req.body.email2)
+        id2.followers.push(req.body.email1)
         id2.save()
 
         res.status(201).json({ status : true, results: id})
