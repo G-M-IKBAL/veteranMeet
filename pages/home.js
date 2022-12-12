@@ -17,6 +17,7 @@ export default function Home() {
   const [email,setEmail] =useState(session.user.email);
   const [name,setName] =useState(session.user.name);
   const [posts,setPosts] = useState([]);
+  const [orgposts,setOrgPosts] =useState([]);
 
 
     useEffect(()=>{
@@ -27,22 +28,31 @@ export default function Home() {
 
 
     async function displayPosts(){
-    const values = {email}
+        const values = {email}
 
-    console.log("follow request values to server = ",values);
+        console.log("follow request values to server = ",values);
 
-      const options = {
-          method: "POST",
-          headers : { 'Content-Type': 'application/json'},
-          body: JSON.stringify(values)
-      }
+          const options = {
+              method: "POST",
+              headers : { 'Content-Type': 'application/json'},
+              body: JSON.stringify(values)
+          }
 
-    await fetch('http://localhost:3000/api/post/get-posts', options)
+        await fetch('http://localhost:3000/api/post/get-posts', options)
         .then(res => res.json())
         .then((data) => {
             if(data) setPosts(data.posts); 
             console.log("posts",posts);
         })
+        
+        await fetch(`http://localhost:3000/api/post/get-org-posts/${email}`)
+        .then(res => res.json())
+        .then((data) => {
+            if(data) setOrgPosts(data.posts); 
+            console.log("org posts",orgposts);
+        })    
+
+    
 
     }      
 
@@ -70,7 +80,19 @@ export default function Home() {
           {
             posts.map((post,idx)=>(
 
-              <Feed text={post.text} key={idx} multimedia={post.multimedia} email={email} />
+              <Feed text={post.text} key={idx} multimedia={post.multimedia} email={post.email} />
+              
+            ))
+
+            
+          }
+          {
+            orgposts.map((org)=>(
+
+              org.map((post,idx2)=>(
+                // console.log(post,idx2)
+                <Feed text={post.text} key={idx2} multimedia={post.multimedia} email={post.email} />
+              ))
               
             ))
             
