@@ -33,9 +33,10 @@ function CreateEvent(){
 	async function handleSubmit(event){
 
 		// values.descreption = selected;
-
+		
 		event.preventDefault();
-
+		alert("Event Created")
+		
 		const values = {
 			email,name, type,time,location,stars,descreption,hobbies
 		}
@@ -198,7 +199,7 @@ function CreateEvent(){
 				</fieldset>
 
 				{/* <button type={"submit"} className={`w-full px-8 py-3 font-bold rounded-md text-white dark:bg-[#1976d2] dark:text-gray-900 bg-[#1565c0] `}>Create</button> */}
-				<button type="submit" className="w-full p-3 bg-blue-500 text-white text-sm font-bold tracking-wide uppercase rounded ">Create</button>
+				<button type="submit" className="w-full p-3 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold tracking-wide uppercase rounded ">Create</button>
 			
 			
 			</form>
