@@ -7,7 +7,7 @@ function Follow({email1,email2}){
     
 
     async function handleFollow(e){
-
+        alert("followed")
         console.log("followed sent to ", email2);
 
         e.preventDefault();
@@ -41,7 +41,7 @@ function Follow({email1,email2}){
                 <div className="flex flex-col space-y-1">
                     <a rel="noopener noreferrer" href="#" className="text-sm font-semibold">{email2}</a>
                     {/* <a rel="noopener noreferrer" href="#" className="text-sm font-semibold">{name}</a> */}
-                    <button className="text-white p-2 bg-blue-500 text-md" onClick={handleFollow}>Follow</button>
+                    <button className="text-white p-2 bg-blue-500 hover:bg-blue-600 text-md" onClick={handleFollow}>Follow</button>
                 </div>
             </div>
         </div>
