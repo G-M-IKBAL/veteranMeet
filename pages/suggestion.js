@@ -169,7 +169,7 @@ function Suggestion(){
             :
             suggestions.map(
               (event,idx)=>(
-                <EventCard key={idx} eventid={idx} email={event.email} name={event.name} descreption={event.descreption} type={event.type} time={event.time} location={event.location} hobbies={event.hobbies}   />
+                <EventCard key={idx} eventid={event.eventid} email={event.email} name={event.name} descreption={event.descreption} type={event.type} time={event.time} location={event.location} hobbies={event.hobbies}   />
               )
             )
              

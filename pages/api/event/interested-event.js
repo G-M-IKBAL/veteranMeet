@@ -10,7 +10,7 @@ export default async function handler(req, res){
 
         if(!req.body) return res.status(404).json({ error: "Don't have form data...!"});
 
-        await Users.findOneAndUpdate({ email: req.body.email },{ $push: { intrestedEvents: req.body.eventID } })
+        await Users.findOneAndUpdate({ email: req.body.email },{ $push: { intrestedEvents: req.body.eventid } })
         
         res.status(201).json({ status : true, results: req.body})
 
