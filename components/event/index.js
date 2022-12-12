@@ -1,4 +1,37 @@
 function EventCard({eventid,email,name,descreption,type,time,location,hobbies}){
+   
+
+    async function handleInterseted(event){
+
+        event.preventDefault();
+        alert("added to interested events");
+
+        const values = {email,eventid};
+
+        const options = {
+            method: "POST",
+            headers : { 'Content-Type': 'application/json'},
+            body: JSON.stringify(values)
+        }
+
+
+        await fetch('http://localhost:3000/api/event/interested-event', options)
+          .then(res => res.json())
+          .then((data) => {
+              if(data) {
+                console.log("invites sent to ",data.results); 
+              }
+              else{
+                console.log("no data");
+              }
+              
+          })
+
+         
+
+
+    }
+
 
     return(
         <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
@@ -16,6 +49,7 @@ function EventCard({eventid,email,name,descreption,type,time,location,hobbies}){
                 <h2 className="mb-1 text-xl font-semibold">Name:{name}</h2>
                 <a rel="noopener noreferrer" href="#" className="text-sm font-semibold">Hobbies:{hobbies[0].name}</a>
                 <p className="text-sm dark:text-gray-400">description:{descreption}</p>
+                <button className="bg-blue-500 text-white hover:bg-blue-600 p-2" onClick={handleInterseted}>Interested</button>
             </div>
             
         </div>
